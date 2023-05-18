@@ -34,5 +34,13 @@ namespace RedisDemo.Controllers
             await _distributedCache.SetStringAsync("DashboardData", jsonData, distributedCacheEntryOptions);
             return View();
         }
+
+        public async Task<ActionResult> DashBoard()
+        {
+            var jsonData = await _distributedCache.GetStringAsync("DashboardData");
+            var dashboard_Data = JsonConvert.DeserializeObject<DashboardData>(jsonData);
+            ViewBag.DashboardData = dashboard_Data;
+            return View();
+        }
     }
 }
